@@ -8,7 +8,6 @@ function recordCap() {
 	this.rafID = null;
 	this.canvasID = null;
 	this.analyserContext = null;
-	this.canvasWidth, canvasHeight;
 	this.recIndex = 0;
 	this.lrecord = null;
 	this.firstlink = null;
