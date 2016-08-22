@@ -1,7 +1,7 @@
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 function recordCap() {
-	
+	this.masterInputSelector = document.createElement('select');
 	this.audioContext = new AudioContext();
 	this.audioRecorder = null;
 	this.Track = null;
