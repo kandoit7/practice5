@@ -125,3 +125,4 @@ function recordCap() {
 }
 
 var onetrack = recordCap();
+var twotrack = recordCap();
