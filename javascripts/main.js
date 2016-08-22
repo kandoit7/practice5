@@ -112,6 +112,7 @@ function recordCap() {
 			audio: { deviceId: audioSource ? {exact: audioSource} : undefined}
 		};
 		navigator.mediaDevices.getUserMedia(constraints).then(gotStream).catch(handleError);
+		console.log("start");
 	};
 	
 	this.handleError = function(error) {
