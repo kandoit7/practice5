@@ -123,3 +123,5 @@ function recordCap() {
 	
 	initAudio(0);
 }
+
+var onetrack = recordCap();
