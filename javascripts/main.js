@@ -107,7 +107,7 @@ function recordCap() {
 			});
 		}
 		
-		var audioSoutce = index.value;
+		var audioSource = index.value;
 		var constraints = {
 			audio: { deviceId: audioSource ? {exact: audioSource} : undefined}
 		};
