@@ -1,7 +1,6 @@
 var masterInputSelector = document.createElement('select');
 
-var audioContext1 = new (window.AudioContext || window.webkitAudioContext)();
-var audioContext2 = new (window.AudioContext || window.webkitAudioContext)();
+var audioContext = new (window.AudioContext || window.webkitAudioContext)();
 var audioRecorder1 = null;
 var audioRecorder2 = null;
 var Track = null;    
@@ -127,18 +126,18 @@ function changeAudioDestination(event) {
 }
 	
 function gotStream1(stream) {
-	window.stream = stream; // make stream available to console
+	//window.stream = stream; // make stream available to console
 	
 	// Create an AudioNode from the stream.
-	var realAudioInput = audioContext1.createMediaStreamSource(stream);
+	var realAudioInput = audioContext.createMediaStreamSource(stream);
 	var audioInput = realAudioInput;
 	
-	var inputPoint = audioContext1.createGain();
+	var inputPoint = audioContext.createGain();
 	inputPoint.gain.value = 1.0;
 	audioInput.connect(inputPoint);
 	//audioInput = convertToMono( input );
 	
-	analyserNode = audioContext1.createAnalyser();
+	var analyserNode = audioContext.createAnalyser();
 	analyserNode.fftSize = 2048;
 	inputPoint.connect( analyserNode );
 	
@@ -148,24 +147,24 @@ function gotStream1(stream) {
 	//changeGain.gain.value = 1.0;
 	//inputPoint.connect(changeGain);
 	//changeGain.connect(audioContext.destination);
-	inputPoint.connect(audioContext1.destination);
+	inputPoint.connect(audioContext.destination);
 	
 	return navigator.mediaDevices.enumerateDevices();
 }
 
 function gotStream2(stream) {
-	window.stream = stream; // make stream available to console
+	//window.stream = stream; // make stream available to console
 	
 	// Create an AudioNode from the stream.
-	var realAudioInput = audioContext2.createMediaStreamSource(stream);
+	var realAudioInput = audioContext.createMediaStreamSource(stream);
 	var audioInput = realAudioInput;
 	
-	var inputPoint = audioContext2.createGain();
+	var inputPoint = audioContext.createGain();
 	inputPoint.gain.value = 1.0;
 	audioInput.connect(inputPoint);
 	//audioInput = convertToMono( input );
 	
-	analyserNode = audioContext2.createAnalyser();
+	var analyserNode = audioContext.createAnalyser();
 	analyserNode.fftSize = 2048;
 	inputPoint.connect( analyserNode );
 	
@@ -175,7 +174,7 @@ function gotStream2(stream) {
 	//changeGain.gain.value = 1.0;
 	//inputPoint.connect(changeGain);
 	//changeGain.connect(audioContext.destination);
-	inputPoint.connect(audioContext2.destination);
+	inputPoint.connect(audioContext.destination);
 	
 	return navigator.mediaDevices.enumerateDevices();
 }
