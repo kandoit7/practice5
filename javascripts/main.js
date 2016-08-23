@@ -140,9 +140,7 @@ var twotrack = recordCap();
    limitations under the License.
 */
 
-var masterInputSelector = document.createElement('select');
-
-var audioInputSelect = document.querySelector('select#change');
+var audioInputSelect = document.querySelector('select#change1');
 var selectors = [audioInputSelect];
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -228,9 +226,7 @@ function gotDevices(deviceInfos) {
       option.text = deviceInfo.label ||
           'microphone ' + (audioInputSelect.length + 1);
       audioInputSelect.appendChild(option);
-    } else {
-      //console.log('Some other kind of source/device: ', deviceInfo);
-    }
+    } 
   }
   selectors.forEach(function(select, selectorIndex) {
     if (Array.prototype.slice.call(select.childNodes).some(function(n) {
@@ -297,6 +293,8 @@ navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
 initAudio(0);
 
 /*
+
+var masterInputSelector = document.createElement('select');
 
 function gotDevices(deviceInfos) {
 	
