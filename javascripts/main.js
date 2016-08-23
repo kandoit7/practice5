@@ -184,48 +184,48 @@ function play( e ) {
 	track.play();
 }
 
-function toggleRecording( e ) {
+function toggleRecording1( e ) {
 	canvasID = e.id;
 	var imgchange = e;
 	if (e.classList.contains("recording")) {
 	// stop recording
-		audioRecorder.stop();
+		audioRecorder1.stop();
 		e.classList.remove("recording");
-		audioRecorder.getBuffers( gotBuffers );
+		audioRecorder1.getBuffers( gotBuffers );
 		imgchange.src = 'images/mic.png'
 		link = document.getElementById('save');
 		lrecord = "l" + e.id;
 	} else {
 	// start recording  
-		if (!audioRecorder)
+		if (!audioRecorder1)
 	    		return;
 	
 		e.classList.add("recording");
-		audioRecorder.clear();
-		audioRecorder.record();
+		audioRecorder1.clear();
+		audioRecorder1.record();
 		imgchange.src = 'images/micrec.png'
 	}
 
 }
-function toggleRecording( e ) {
+function toggleRecording2( e ) {
 	canvasID = e.id;
 	var imgchange = e;
 	if (e.classList.contains("recording")) {
 	// stop recording
-		audioRecorder.stop();
+		audioRecorder2.stop();
 		e.classList.remove("recording");
-		audioRecorder.getBuffers( gotBuffers );
+		audioRecorder2.getBuffers( gotBuffers );
 		imgchange.src = 'images/mic.png'
 		link = document.getElementById('save');
 		lrecord = "l" + e.id;
 	} else {
 	// start recording  
-		if (!audioRecorder)
+		if (!audioRecorder2)
 	    		return;
 	
 		e.classList.add("recording");
-		audioRecorder.clear();
-		audioRecorder.record();
+		audioRecorder2.clear();
+		audioRecorder2.record();
 		imgchange.src = 'images/micrec.png'
 	}
 }
