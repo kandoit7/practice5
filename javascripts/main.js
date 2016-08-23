@@ -28,10 +28,21 @@ function gotBuffers2( buffers ) {
 	audioRecorder2.exportWAV( doneEncoding );
 }
 
-function play( e ) {
+function play1( e ) {
 	console.log(e);
 	var tracklink = document.createElement('a');
-	tracklink.id = lrecord;
+	tracklink.id = lrecord1;
+	tracklink.href = link.href;
+	e.appendChild(tracklink);
+	
+	var track = new Audio(tracklink.href);
+	track.play();
+}
+
+function play2( e ) {
+	console.log(e);
+	var tracklink = document.createElement('a');
+	tracklink.id = lrecord2;
 	tracklink.href = link.href;
 	e.appendChild(tracklink);
 	
@@ -49,7 +60,7 @@ function toggleRecording1( e ) {
 		imgchange.src = 'images/mic.png'
 		lrecord1 = "l" + e.id;
 		audioRecorder1.getBuffers( gotBuffers1 );
-		link = document.getElementById('save');
+		link1 = document.getElementById('save1');
 	} else {
 		// start recording  
 		if (!audioRecorder1)
@@ -72,7 +83,7 @@ function toggleRecording2( e ) {
 		imgchange.src = 'images/mic.png'
 		lrecord2 = "l" + e.id;
 		audioRecorder2.getBuffers( gotBuffers2 );
-		link = document.getElementById('save');
+		link2 = document.getElementById('save2');
 	} else {
 		// start recording  
 		if (!audioRecorder2)
