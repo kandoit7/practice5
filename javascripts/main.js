@@ -140,8 +140,10 @@ var twotrack = recordCap();
    limitations under the License.
 */
 
-var audioInputSelect = document.querySelector('select#change1');
-var selectors = [audioInputSelect];
+var audioInputSelect1 = document.querySelector('select#change1');
+var audioInputSelect2 = document.querySelector('select#change2');
+
+var selectors = [audioInputSelect1, audioInputSelect2];
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
@@ -223,9 +225,10 @@ function gotDevices(deviceInfos) {
     var option = document.createElement('option');
     option.value = deviceInfo.deviceId;
     if (deviceInfo.kind === 'audioinput') {
-      option.text = deviceInfo.label ||
-          'microphone ' + (audioInputSelect.length + 1);
-      audioInputSelect.appendChild(option);
+      option.text = deviceInfo.label || 'microphone ' + (audioInputSelect1.length + 1);
+      option.text = deviceInfo.label || 'microphone ' + (audioInputSelect2.length + 1);
+      audioInputSelect1.appendChild(option);
+      audioInputSelect2.appendChild(option);
     } 
   }
   selectors.forEach(function(select, selectorIndex) {
@@ -235,11 +238,6 @@ function gotDevices(deviceInfos) {
       select.value = values[selectorIndex];
     }
   });
-}
-
-function changeAudioDestination(event) {
-	var InputSelector = event.path[0];
-	initAudio(InputSelector);
 }
 	
 function gotStream(stream) {
@@ -314,6 +312,12 @@ function gotDevices(deviceInfos) {
 		newInputSelector.addEventListener('change', changeAudioDestination);
 		audioInputSelect[selector].parentNode.replaceChild(newInputSelector, audioInputSelect[selector]);
 	}
+}
+
+
+function changeAudioDestination(event) {
+	var InputSelector = event.path[0];
+	initAudio(InputSelector);
 }
 
 function initAudio(index) {
