@@ -12,7 +12,6 @@ var canvasID2 = null;
 var recIndex = 0;
 var lrecord1 = null;
 var lrecord2 = null;
-var link = null;
 
 function gotBuffers1( buffers ) {
 	var ci = "c"+canvasID1;
