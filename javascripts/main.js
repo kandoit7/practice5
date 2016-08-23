@@ -42,21 +42,21 @@ function toggleRecording1( e ) {
 	var imgchange = e;
 	if (e.classList.contains("recording")) {
 		// stop recording
-		audioRecorder.stop();
+		audioRecorder1.stop();
 		e.classList.remove("recording");
 		imgchange.src = 'images/mic.png'
 		lrecord = "l" + e.id;
-		audioRecorder.getBuffers1( gotBuffers );
+		audioRecorder1.getBuffers1( gotBuffers );
 		link = document.getElementById('save');
 	} else {
 		// start recording  
-		if (!audioRecorder)
+		if (!audioRecorder1)
 	    		return;
 	
 		e.classList.add("recording");
 		imgchange.src = 'images/micrec.png'
-		audioRecorder.clear();
-		audioRecorder.record();
+		audioRecorder1.clear();
+		audioRecorder1.record();
 	}
 }
 
@@ -65,21 +65,21 @@ function toggleRecording2( e ) {
 	var imgchange = e;
 	if (e.classList.contains("recording")) {
 		// stop recording
-		audioRecorder.stop();
+		audioRecorder2.stop();
 		e.classList.remove("recording");
 		imgchange.src = 'images/mic.png'
 		lrecord = "l" + e.id;
-		audioRecorder.getBuffers2( gotBuffers );
+		audioRecorder2.getBuffers2( gotBuffers );
 		link = document.getElementById('save');
 	} else {
 		// start recording  
-		if (!audioRecorder)
+		if (!audioRecorder2)
 	    		return;
 	
 		e.classList.add("recording");
 		imgchange.src = 'images/micrec.png'
-		audioRecorder.clear();
-		audioRecorder.record();
+		audioRecorder2.clear();
+		audioRecorder2.record();
 	}
 }
 
