@@ -10,7 +10,7 @@ var audioRecorder = null;
 var Track = null;    
 var rafID = null;
 var canvasID = null;
-var analyserContext = null;
+var analyserNode = null;
 var canvasWidth, canvasHeight;
 var recIndex = 0;
 var lrecord = null;
