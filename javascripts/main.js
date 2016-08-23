@@ -150,7 +150,8 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioContext = new AudioContext();
 //var audioInput = null;
 //var realAudioInput = null;
-var audioRecorder = null;
+var audioRecorder1 = null;
+var audioRecorder2 = null;
 var Track = null;    
 var rafID = null;
 var canvasID = null;
@@ -240,7 +241,7 @@ function gotDevices(deviceInfos) {
   });
 }
 	
-function gotStream(stream) {
+function gotStream1(stream) {
 	window.stream = stream; // make stream available to console
 	
 	// Create an AudioNode from the stream.
@@ -252,11 +253,11 @@ function gotStream(stream) {
 	audioInput.connect(inputPoint);
 	//audioInput = convertToMono( input );
 	
-	analyserNode = audioContext.createAnalyser();
+	var analyserNode = audioContext.createAnalyser();
 	analyserNode.fftSize = 2048;
 	inputPoint.connect( analyserNode );
 	
-	audioRecorder = new Recorder( inputPoint ); // this fuck what the fuck
+	audioRecorder1 = new Recorder( inputPoint ); // this fuck what the fuck
 	// speak / headphone feedback initial settings
 	
 	//changeGain.gain.value = 1.0;
@@ -267,18 +268,58 @@ function gotStream(stream) {
 	return navigator.mediaDevices.enumerateDevices();
 }
 
-function initAudio() {
+function gotStream2(stream) {
+	window.stream = stream; // make stream available to console
+	
+	// Create an AudioNode from the stream.
+	var realAudioInput = audioContext.createMediaStreamSource(stream);
+	var audioInput = realAudioInput;
+	
+	var inputPoint = audioContext.createGain();
+	inputPoint.gain.value = 1.0;
+	audioInput.connect(inputPoint);
+	//audioInput = convertToMono( input );
+	
+	var analyserNode = audioContext.createAnalyser();
+	analyserNode.fftSize = 2048;
+	inputPoint.connect( analyserNode );
+	
+	audioRecorder2 = new Recorder( inputPoint ); // this fuck what the fuck
+	// speak / headphone feedback initial settings
+	
+	//changeGain.gain.value = 1.0;
+	//inputPoint.connect(changeGain);
+	//changeGain.connect(audioContext.destination);
+	inputPoint.connect(audioContext.destination);
+	
+	return navigator.mediaDevices.enumerateDevices();
+}
+function initAudio1() {
 	if (window.stream) {
     		window.stream.getTracks().forEach(function(track) {
         		track.stop();
         	});
     	}
     	
-	var audioSource = audioInputSelect.value;
+	var audioSource = audioInputSelect1.value;
 	var constraints = {
 		audio: { deviceId: audioSource ? {exact: audioSource} : undefined}
 	};
-    	navigator.mediaDevices.getUserMedia(constraints).then(gotStream).then(gotDevices).catch(handleError);
+    	navigator.mediaDevices.getUserMedia(constraints).then(gotStream1).then(gotDevices).catch(handleError);
+    	console.log("initAudio");
+}
+function initAudio2() {
+	if (window.stream) {
+    		window.stream.getTracks().forEach(function(track) {
+        		track.stop();
+        	});
+    	}
+    	
+	var audioSource = audioInputSelect2.value;
+	var constraints = {
+		audio: { deviceId: audioSource ? {exact: audioSource} : undefined}
+	};
+    	navigator.mediaDevices.getUserMedia(constraints).then(gotStream2).then(gotDevices).catch(handleError);
     	console.log("initAudio");
 }
 
@@ -288,8 +329,8 @@ function handleError(error) {
 }
 
 navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
-initAudio(0);
-
+initAudio1();
+initAudio2();
 /*
 
 var masterInputSelector = document.createElement('select');
