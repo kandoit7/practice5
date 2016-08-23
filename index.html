@@ -9,7 +9,7 @@
 			height: 110px;
 			margin: 5px 0px 0px 0px;
 		}
-		.track1, .track2 {
+		.track1 {
 			display: inline-block;
 			width: 160px;
 			height: 100px;
@@ -38,8 +38,8 @@
 		<span>
 			<a id="save"></a>
 		</span>
-		<div>
-			<span class='track1'>track1
+		<div id="track1">
+			<span class='track'>track1
 				<input type="button" value="play" onclick="play(this);"/>
 				<input type="button" value="down" />
 			</span>
@@ -47,8 +47,8 @@
 			<img id="record" src="images/mic.png" onclick="toggleRecording(this);">
 			<select id="change" class="one"></select>
 		</div>
-		<div>
-			<span class='track2'>track2
+		<div id="track2">
+			<span class='track'>track2
 				<input type="button" value="play" onclick="play(this);"/>
 				<input type="button" value="down"/>
 			</span>
