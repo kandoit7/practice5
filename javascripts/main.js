@@ -61,7 +61,7 @@ function toggleRecording1( e ) {
 		imgchange.src = 'images/mic.png'
 		lrecord1 = "l" + e.id;
 		audioRecorder1.getBuffers( gotBuffers1 );
-		link1 = document.getElementById('save1');
+		link1 = document.getElementById('save');
 	} else {
 		// start recording  
 		if (!audioRecorder1)
@@ -84,7 +84,7 @@ function toggleRecording2( e ) {
 		imgchange.src = 'images/mic.png'
 		lrecord2 = "l" + e.id;
 		audioRecorder2.getBuffers( gotBuffers2 );
-		link2 = document.getElementById('save2');
+		link2 = document.getElementById('save');
 	} else {
 		// start recording  
 		if (!audioRecorder2)
