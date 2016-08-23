@@ -83,7 +83,7 @@ function changeAudioDestination(event) {
 	initAudio(InputSelector);
 }
 	
-function gotStream1(stream) {
+function gotStream(stream) {
 	window.stream = stream; // make stream available to console
 	
 	// Create an AudioNode from the stream.
@@ -110,33 +110,6 @@ function gotStream1(stream) {
 	return navigator.mediaDevices.enumerateDevices();
 }
 
-function gotStream2(stream) {
-	window.stream = stream; // make stream available to console
-	
-	// Create an AudioNode from the stream.
-	var realAudioInput = audioContext.createMediaStreamSource(stream);
-	var audioInput = realAudioInput;
-	
-	var inputPoint = audioContext.createGain();
-	inputPoint.gain.value = 1.0;
-	audioInput.connect(inputPoint);
-	//audioInput = convertToMono( input );
-	
-	analyserNode = audioContext.createAnalyser();
-	analyserNode.fftSize = 2048;
-	inputPoint.connect( analyserNode );
-	
-	audioRecorder2 = new Recorder( inputPoint ); // this fuck what the fuck
-	// speak / headphone feedback initial settings
-	
-	//changeGain.gain.value = 1.0;
-	//inputPoint.connect(changeGain);
-	//changeGain.connect(audioContext.destination);
-	inputPoint.connect(audioContext.destination);
-	
-	return navigator.mediaDevices.enumerateDevices();
-}
-
 function initAudio(index) {
 	if (window.stream) {
 		window.stream.getTracks().forEach(function(track) {
@@ -145,10 +118,11 @@ function initAudio(index) {
 	}
 	
 	var audioSource = index.value;
+	console.log(audioSource);
 	var constraints = {
 		audio: { deviceId: audioSource ? {exact: audioSource} : undefined}
 	};
-	navigator.mediaDevices.getUserMedia(constraints).then(gotStream1).then(gotStream2).catch(handleError);
+	navigator.mediaDevices.getUserMedia(constraints).then(gotStream).catch(handleError);
 }
 
 function handleError(error) {
