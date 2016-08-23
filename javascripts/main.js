@@ -1,9 +1,7 @@
 var masterInputSelector = document.createElement('select');
 
-window.AudioContext = window.AudioContext || window.webkitAudioContext;
-
-var audioContext1 = new AudioContext();
-var audioContext2 = new AudioContext();
+var audioContext1 = new (window.AudioContext || window.webkitAudioContext)();
+var audioContext2 = new (window.AudioContext || window.webkitAudioContext)();
 var audioRecorder1 = null;
 var audioRecorder2 = null;
 var Track = null;    
