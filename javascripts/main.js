@@ -175,7 +175,7 @@ function initAudio(index) {
 	
 	var audioSource = index.value;
 	var idconfirm = index.parentNode;
-	console.log(idconfirm);
+	console.log(idconfirm.id);
 	var constraints = {
 		audio: { deviceId: audioSource ? {exact: audioSource} : undefined}
 	};
