@@ -3,7 +3,7 @@ var masterInputSelector = document.createElement('select');
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 var audioContext = new AudioContext();
-var audioRecorder1 = null;
+var audioRecorder = null;
 var audioRecorder2 = null;
 var Track = null;    
 var rafID = null;
@@ -99,7 +99,7 @@ function gotStream(stream) {
 	analyserNode.fftSize = 2048;
 	inputPoint.connect( analyserNode );
 	
-	audioRecorder1 = new Recorder( inputPoint ); // this fuck what the fuck
+	audioRecorder = new Recorder( inputPoint ); // this fuck what the fuck
 	// speak / headphone feedback initial settings
 	
 	//changeGain.gain.value = 1.0;
