@@ -51,7 +51,7 @@ function toggleRecording1( e ) {
 		imgchange.src = 'images/mic.png'
 		lrecord1 = "l" + e.id;
 		audioRecorder1.getBuffers( gotBuffers1 );
-		link = document.getElementById('save');
+		var link = document.getElementById('save');
 		tracklink1 = document.createElement('a');
 		tracklink1.id = lrecord1;
 		tracklink1.href = link.href;
@@ -78,7 +78,7 @@ function toggleRecording2( e ) {
 		imgchange.src = 'images/mic.png'
 		lrecord2 = "l" + e.id;
 		audioRecorder2.getBuffers( gotBuffers2 );
-		link = document.getElementById('save');
+		var link = document.getElementById('save');
 		tracklink2 = document.createElement('a');
 		tracklink2.id = lrecord2;
 		tracklink2.href = link.href;
