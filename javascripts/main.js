@@ -115,5 +115,5 @@ function handleError(error) {
 }
 
 navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
-initAudio();
+initAudio(0);
 
