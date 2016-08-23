@@ -1,22 +1,15 @@
-
 var masterInputSelector = document.createElement('select');
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 var audioContext = new AudioContext();
-//var audioInput = null;
-//var realAudioInput = null;
 var audioRecorder = null;
 var Track = null;    
 var rafID = null;
 var canvasID = null;
-var analyserNode = null;
-var canvasWidth, canvasHeight;
 var recIndex = 0;
 var lrecord = null;
-var firstlink = null;
-var tracklink = null;
-//var link = null;
+var link = null;
 
 function gotBuffers( buffers ) {
 	var ci = "c"+canvasID;
