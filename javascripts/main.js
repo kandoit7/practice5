@@ -46,7 +46,7 @@ function toggleRecording1( e ) {
 		e.classList.remove("recording");
 		imgchange.src = 'images/mic.png'
 		lrecord = "l" + e.id;
-		audioRecorder1.getBuffers1( gotBuffers );
+		audioRecorder1.getBuffers( gotBuffers1 );
 		link = document.getElementById('save');
 	} else {
 		// start recording  
@@ -69,7 +69,7 @@ function toggleRecording2( e ) {
 		e.classList.remove("recording");
 		imgchange.src = 'images/mic.png'
 		lrecord = "l" + e.id;
-		audioRecorder2.getBuffers2( gotBuffers );
+		audioRecorder2.getBuffers( gotBuffers2 );
 		link = document.getElementById('save');
 	} else {
 		// start recording  
@@ -179,6 +179,7 @@ function initAudio(index) {
 	var constraints = {
 		audio: { deviceId: audioSource ? {exact: audioSource} : undefined}
 	};
+	
 	if(idconfirm.id == "track1")
 		navigator.mediaDevices.getUserMedia(constraints).then(gotStream1).catch(handleError);
 	if(idconfirm.id == "track2")
