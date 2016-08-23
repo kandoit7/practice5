@@ -40,8 +40,8 @@ function toggleRecording( e ) {
 		audioRecorder.stop();
 		e.classList.remove("recording");
 		audioRecorder.getBuffers( gotBuffers );
-		imgchange.src = 'images/mic.png'
 		link = document.getElementById('save');
+		imgchange.src = 'images/mic.png'
 		lrecord = "l" + e.id;
 	} else {
 		// start recording  
