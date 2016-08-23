@@ -4,57 +4,59 @@
 		<meta charset="utf-8">
 		<title>JM-Multi Track</title>
 		<style>
-			div { 
-				vertical-align:bottom;
-				height: 120px;
-				margin: 5px 0px 0px 0px;
-			}
-			.track {
-				display: inline-block;
-				width: 160px;
-				height: 100px;
-				background-color: skyblue;
-			}
-			.trackline {
-			}
-			canvas {
-				width: 300px;
-				height: 100px;
-				background: #202020; 
-				box-shadow: 0px 0px 10px blue;
-				color: white;
-				vertical-align:bottom;
-			}
-			img {
-				vertical-align:top;
-			}
-			#audioSource{
-				vertical-align:bottom;
-			}
+		div { 
+			vertical-align:bottom;
+			height: 110px;
+			margin: 5px 0px 0px 0px;
+		}
+		.track {
+			display: inline-block;
+			width: 160px;
+			height: 100px;
+			background-color: skyblue;
+		}
+		
+		canvas {
+			width: 300px;
+			height: 100px;
+			background: #202020; 
+			box-shadow: 0px 0px 10px blue;
+			color: white;
+			vertical-align:bottom;
+		}
+		#audioSource{
+			width: 120px;
+			vertical-align:bottom;
+		}
+		
+		img { 
+			vertical-align:top;
+		}
 		</style>
 	</head>
-	<body>		
+	<body>
 		<span>
 			<a id="save"></a>
 		</span>
 		<div>
 			<span class='track'>track1
-				<input type="button" value="play"/ onclick="play(this);">
-				<input type="button" value="down"/>
+				<input type="button" value="play" onclick="play(this);"/>
+				<input type="button" value="down" />
 			</span>
 			<canvas id="crecord" class='record'></canvas>
 			<img id="record" src="images/mic.png" onclick="toggleRecording(this);">
 			<select id="change"></select>
 		</div>
 		<div>
-			<span class='track'>track1
-				<input type="button" value="play"/ onclick="play(this);">
+			<span class='track'>track2
+				<input type="button" value="play" onclick="play(this);"/>
 				<input type="button" value="down"/>
 			</span>
 			<canvas id="crecord2" class='record2'></canvas>
 			<img id="record2" src="images/mic.png" onclick="toggleRecording(this);">
 			<select id="change"></select>
 		</div>
+
 		<script src="javascripts/adapter.js"></script>
     		<script src="javascripts/audiodisplay.js"></script>
     		<script src="javascripts/recorderjs/recorder.js"></script>
