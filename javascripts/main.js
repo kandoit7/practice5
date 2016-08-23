@@ -19,7 +19,7 @@ var recIndex = 0;
 var lrecord = null;
 var firstlink = null;
 var tracklink = null;
-//var link = null;
+var link = null;
 
 function gotBuffers( buffers ) {
 	var ci = "c"+canvasID;
@@ -29,6 +29,11 @@ function gotBuffers( buffers ) {
 	// the ONLY time gotBuffers is called is right after a new recording is completed - 
 	// so here's where we should set up the download.
 	audioRecorder.exportWAV( doneEncoding );
+}
+
+function doneEncoding( blob ) {
+    Recorder.setupDownload( blob, "myRecording" + ((recIndex<10)?"0":"") + recIndex + ".wav" );
+    recIndex++;
 }
 
 function play( e ) {
@@ -66,10 +71,6 @@ function toggleRecording( e ) {
 
 }
 
-function doneEncoding( blob ) {
-    Recorder.setupDownload( blob, "myRecording" + ((recIndex<10)?"0":"") + recIndex + ".wav" );
-    recIndex++;
-}
 
 function gotDevices(deviceInfos) {
 	
