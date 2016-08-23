@@ -96,6 +96,33 @@ function changeAudioDestination(event) {
 	initAudio(InputSelector);
 }
 
+function gotStream(stream) {
+	window.stream = stream; // make stream available to console
+	
+	// Create an AudioNode from the stream.
+	var realAudioInput = audioContext.createMediaStreamSource(stream);
+	var audioInput = realAudioInput;
+	
+	var inputPoint = audioContext.createGain();
+	inputPoint.gain.value = 1.0;
+	audioInput.connect(inputPoint);
+	//audioInput = convertToMono( input );
+	
+	analyserNode = audioContext.createAnalyser();
+	analyserNode.fftSize = 2048;
+	inputPoint.connect( analyserNode );
+	
+	audioRecorder = new Recorder( inputPoint ); // this fuck what the fuck
+	// speak / headphone feedback initial settings
+	
+	//changeGain.gain.value = 1.0;
+	//inputPoint.connect(changeGain);
+	//changeGain.connect(audioContext.destination);
+	inputPoint.connect(audioContext.destination);
+	
+	return navigator.mediaDevices.enumerateDevices();
+}
+
 function initAudio(index) {
 	if (window.stream) {
 		window.stream.getTracks().forEach(function(track) {
