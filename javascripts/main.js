@@ -15,14 +15,14 @@ var lrecord2 = null;
 var link = null;
 
 function gotBuffers1( buffers ) {
-	var ci = "c"+canvasID;
+	var ci = "c"+canvasID1;
    	var canvas = document.getElementById(ci);
 	drawBuffer( canvas.width, canvas.height, canvas.getContext('2d'), buffers[0] );
 	audioRecorder1.exportWAV( doneEncoding );
 }
 
 function gotBuffers2( buffers ) {
-	var ci = "c"+canvasID;
+	var ci = "c"+canvasID2;
    	var canvas = document.getElementById(ci);
 	drawBuffer( canvas.width, canvas.height, canvas.getContext('2d'), buffers[0] );
 	audioRecorder2.exportWAV( doneEncoding );
