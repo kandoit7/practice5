@@ -33,7 +33,7 @@ function play1( e ) {
 	console.log(e);
 	var tracklink = document.createElement('a');
 	tracklink.id = lrecord1;
-	tracklink.href = link.href;
+	tracklink.href = link1.href;
 	e.appendChild(tracklink);
 	
 	var track = new Audio(tracklink.href);
@@ -44,7 +44,7 @@ function play2( e ) {
 	console.log(e);
 	var tracklink = document.createElement('a');
 	tracklink.id = lrecord2;
-	tracklink.href = link.href;
+	tracklink.href = link2.href;
 	e.appendChild(tracklink);
 	
 	var track = new Audio(tracklink.href);
