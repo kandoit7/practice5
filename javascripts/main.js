@@ -73,9 +73,6 @@ function gotDevices(deviceInfos) {
 	var audioInputSelect = document.querySelectorAll('select#change');
 	for ( var selector = 0; selector < audioInputSelect.length; selector++) {
 		var newInputSelector = masterInputSelector.cloneNode(true);
-		newInputSelector[0].id = 'one';
-		newInputSelector[1].id = 'two';
-		
 		newInputSelector.addEventListener('change', changeAudioDestination);
 		audioInputSelect[selector].parentNode.replaceChild(newInputSelector, audioInputSelect[selector]);
 	}
@@ -121,8 +118,8 @@ function initAudio(index) {
 	}
 	
 	var audioSource = index.value;
-	var classconfirm = index.class;
-	console.log(index);
+	var idconfirm = index.parentNode;
+	console.log(idconfirm);
 	var constraints = {
 		audio: { deviceId: audioSource ? {exact: audioSource} : undefined}
 	};
