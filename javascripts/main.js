@@ -3,7 +3,7 @@ var masterInputSelector = document.createElement('select');
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 var audioContext = new AudioContext();
-var audioRecorder = null;
+var audioRecorder1 = null;
 var audioRecorder2 = null;
 var Track = null;    
 var rafID = null;
@@ -12,11 +12,18 @@ var recIndex = 0;
 var lrecord = null;
 var link = null;
 
-function gotBuffers( buffers ) {
+function gotBuffers1( buffers ) {
 	var ci = "c"+canvasID;
    	var canvas = document.getElementById(ci);
 	drawBuffer( canvas.width, canvas.height, canvas.getContext('2d'), buffers[0] );
-	audioRecorder.exportWAV( doneEncoding );
+	audioRecorder1.exportWAV( doneEncoding );
+}
+
+function gotBuffers2( buffers ) {
+	var ci = "c"+canvasID;
+   	var canvas = document.getElementById(ci);
+	drawBuffer( canvas.width, canvas.height, canvas.getContext('2d'), buffers[0] );
+	audioRecorder2.exportWAV( doneEncoding );
 }
 
 function play( e ) {
@@ -30,7 +37,7 @@ function play( e ) {
 	track.play();
 }
 
-function toggleRecording( e ) {
+function toggleRecording1( e ) {
 	canvasID = e.id;
 	var imgchange = e;
 	if (e.classList.contains("recording")) {
@@ -39,7 +46,30 @@ function toggleRecording( e ) {
 		e.classList.remove("recording");
 		imgchange.src = 'images/mic.png'
 		lrecord = "l" + e.id;
-		audioRecorder.getBuffers( gotBuffers );
+		audioRecorder.getBuffers1( gotBuffers );
+		link = document.getElementById('save');
+	} else {
+		// start recording  
+		if (!audioRecorder)
+	    		return;
+	
+		e.classList.add("recording");
+		imgchange.src = 'images/micrec.png'
+		audioRecorder.clear();
+		audioRecorder.record();
+	}
+}
+
+function toggleRecording2( e ) {
+	canvasID = e.id;
+	var imgchange = e;
+	if (e.classList.contains("recording")) {
+		// stop recording
+		audioRecorder.stop();
+		e.classList.remove("recording");
+		imgchange.src = 'images/mic.png'
+		lrecord = "l" + e.id;
+		audioRecorder.getBuffers2( gotBuffers );
 		link = document.getElementById('save');
 	} else {
 		// start recording  
@@ -83,7 +113,7 @@ function changeAudioDestination(event) {
 	initAudio(InputSelector);
 }
 	
-function gotStream(stream) {
+function gotStream1(stream) {
 	window.stream = stream; // make stream available to console
 	
 	// Create an AudioNode from the stream.
@@ -99,7 +129,7 @@ function gotStream(stream) {
 	analyserNode.fftSize = 2048;
 	inputPoint.connect( analyserNode );
 	
-	audioRecorder = new Recorder( inputPoint ); // this fuck what the fuck
+	audioRecorder1 = new Recorder( inputPoint ); // this fuck what the fuck
 	// speak / headphone feedback initial settings
 	
 	//changeGain.gain.value = 1.0;
@@ -110,6 +140,32 @@ function gotStream(stream) {
 	return navigator.mediaDevices.enumerateDevices();
 }
 
+function gotStream2(stream) {
+	window.stream = stream; // make stream available to console
+	
+	// Create an AudioNode from the stream.
+	var realAudioInput = audioContext.createMediaStreamSource(stream);
+	var audioInput = realAudioInput;
+	
+	var inputPoint = audioContext.createGain();
+	inputPoint.gain.value = 1.0;
+	audioInput.connect(inputPoint);
+	//audioInput = convertToMono( input );
+	
+	analyserNode = audioContext.createAnalyser();
+	analyserNode.fftSize = 2048;
+	inputPoint.connect( analyserNode );
+	
+	audioRecorder2 = new Recorder( inputPoint ); // this fuck what the fuck
+	// speak / headphone feedback initial settings
+	
+	//changeGain.gain.value = 1.0;
+	//inputPoint.connect(changeGain);
+	//changeGain.connect(audioContext.destination);
+	inputPoint.connect(audioContext.destination);
+	
+	return navigator.mediaDevices.enumerateDevices();
+}
 function initAudio(index) {
 	if (window.stream) {
 		window.stream.getTracks().forEach(function(track) {
@@ -123,7 +179,11 @@ function initAudio(index) {
 	var constraints = {
 		audio: { deviceId: audioSource ? {exact: audioSource} : undefined}
 	};
-	navigator.mediaDevices.getUserMedia(constraints).then(gotStream).catch(handleError);
+	if(idconfirm.id == "track1")
+		navigator.mediaDevices.getUserMedia(constraints).then(gotStream1).catch(handleError);
+	if(idconfirm.id == "track2")
+		navigator.mediaDevices.getUserMedia(constraints).then(gotStream2).catch(handleError);
+	
 }
 
 function handleError(error) {
