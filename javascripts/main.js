@@ -143,8 +143,8 @@ var twotrack = recordCap();
 var audioInputSelect1 = document.querySelector('select#change1');
 var audioInputSelect2 = document.querySelector('select#change2');
 
-var selectors = [audioInputSelect1, audioInputSelect2];
-
+var selectors1 = [audioInputSelect1];
+var selectors2 = [audioInputSelect2];
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 var audioContext = new AudioContext();
@@ -205,6 +205,29 @@ function toggleRecording( e ) {
 		audioRecorder.record();
 		imgchange.src = 'images/micrec.png'
 	}
+
+}
+function toggleRecording( e ) {
+	canvasID = e.id;
+	var imgchange = e;
+	if (e.classList.contains("recording")) {
+	// stop recording
+		audioRecorder.stop();
+		e.classList.remove("recording");
+		audioRecorder.getBuffers( gotBuffers );
+		imgchange.src = 'images/mic.png'
+		link = document.getElementById('save');
+		lrecord = "l" + e.id;
+	} else {
+	// start recording  
+		if (!audioRecorder)
+	    		return;
+	
+		e.classList.add("recording");
+		audioRecorder.clear();
+		audioRecorder.record();
+		imgchange.src = 'images/micrec.png'
+	}
 }
 
 function doneEncoding( blob ) {
@@ -212,11 +235,11 @@ function doneEncoding( blob ) {
     recIndex++;
 }
 
-function gotDevices(deviceInfos) {
-   var values = selectors.map(function(select) {
+function gotDevices1(deviceInfos) {
+   var values = selectors1.map(function(select) {
     return select.value;
   });
-  selectors.forEach(function(select) {
+  selectors1.forEach(function(select) {
     while (select.firstChild) {
       select.removeChild(select.firstChild);
     }
@@ -227,12 +250,10 @@ function gotDevices(deviceInfos) {
     option.value = deviceInfo.deviceId;
     if (deviceInfo.kind === 'audioinput') {
       option.text = deviceInfo.label || 'microphone ' + (audioInputSelect1.length + 1);
-      option.text = deviceInfo.label || 'microphone ' + (audioInputSelect2.length + 1);
       audioInputSelect1.appendChild(option);
-      audioInputSelect2.appendChild(option);
     } 
   }
-  selectors.forEach(function(select, selectorIndex) {
+  selectors1.forEach(function(select, selectorIndex) {
     if (Array.prototype.slice.call(select.childNodes).some(function(n) {
       return n.value === values[selectorIndex];
     })) {
@@ -240,7 +261,34 @@ function gotDevices(deviceInfos) {
     }
   });
 }
-	
+
+function gotDevices2(deviceInfos) {
+   var values = selectors2.map(function(select) {
+    return select.value;
+  });
+  selectors2.forEach(function(select) {
+    while (select.firstChild) {
+      select.removeChild(select.firstChild);
+    }
+  });
+  for (var i = 0; i !== deviceInfos.length; ++i) {
+    var deviceInfo = deviceInfos[i];
+    var option = document.createElement('option');
+    option.value = deviceInfo.deviceId;
+    if (deviceInfo.kind === 'audioinput') {
+      option.text = deviceInfo.label || 'microphone ' + (audioInputSelect2.length + 1);
+      audioInputSelect2.appendChild(option);
+    } 
+  }
+  selectors2.forEach(function(select, selectorIndex) {
+    if (Array.prototype.slice.call(select.childNodes).some(function(n) {
+      return n.value === values[selectorIndex];
+    })) {
+      select.value = values[selectorIndex];
+    }
+  });
+}
+
 function gotStream1(stream) {
 	window.stream = stream; // make stream available to console
 	
@@ -305,7 +353,7 @@ function initAudio1() {
 	var constraints = {
 		audio: { deviceId: audioSource ? {exact: audioSource} : undefined}
 	};
-    	navigator.mediaDevices.getUserMedia(constraints).then(gotStream1).then(gotDevices).catch(handleError);
+    	navigator.mediaDevices.getUserMedia(constraints).then(gotStream1).then(gotDevices1).catch(handleError);
     	console.log("initAudio");
 }
 function initAudio2() {
@@ -319,7 +367,7 @@ function initAudio2() {
 	var constraints = {
 		audio: { deviceId: audioSource ? {exact: audioSource} : undefined}
 	};
-    	navigator.mediaDevices.getUserMedia(constraints).then(gotStream2).then(gotDevices).catch(handleError);
+    	navigator.mediaDevices.getUserMedia(constraints).then(gotStream2).then(gotDevices2).catch(handleError);
     	console.log("initAudio");
 }
 
@@ -328,7 +376,8 @@ function handleError(error) {
   console.log('navigator.getUserMedia error: ', error);
 }
 
-navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
+navigator.mediaDevices.enumerateDevices().then(gotDevices1).catch(handleError);
+navigator.mediaDevices.enumerateDevices().then(gotDevices2).catch(handleError);
 initAudio1();
 initAudio2();
 /*
