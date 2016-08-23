@@ -7,9 +7,11 @@ var audioRecorder1 = null;
 var audioRecorder2 = null;
 var Track = null;    
 var rafID = null;
-var canvasID = null;
+var canvasID1 = null;
+var canvasID2 = null;
 var recIndex = 0;
-var lrecord = null;
+var lrecord1 = null;
+var lrecord2 = null;
 var link = null;
 
 function gotBuffers1( buffers ) {
@@ -38,14 +40,14 @@ function play( e ) {
 }
 
 function toggleRecording1( e ) {
-	canvasID = e.id;
+	canvasID1 = e.id;
 	var imgchange = e;
 	if (e.classList.contains("recording")) {
 		// stop recording
 		audioRecorder1.stop();
 		e.classList.remove("recording");
 		imgchange.src = 'images/mic.png'
-		lrecord = "l" + e.id;
+		lrecord1 = "l" + e.id;
 		audioRecorder1.getBuffers( gotBuffers1 );
 		link = document.getElementById('save');
 	} else {
@@ -61,14 +63,14 @@ function toggleRecording1( e ) {
 }
 
 function toggleRecording2( e ) {
-	canvasID = e.id;
+	canvasID2 = e.id;
 	var imgchange = e;
 	if (e.classList.contains("recording")) {
 		// stop recording
 		audioRecorder2.stop();
 		e.classList.remove("recording");
 		imgchange.src = 'images/mic.png'
-		lrecord = "l" + e.id;
+		lrecord2 = "l" + e.id;
 		audioRecorder2.getBuffers( gotBuffers2 );
 		link = document.getElementById('save');
 	} else {
