@@ -4,6 +4,8 @@ var masterInputSelector = document.createElement('select');
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 var audioContext = new AudioContext();
+//var audioInput = null;
+//var realAudioInput = null;
 var audioRecorder = null;
 var Track = null;    
 var rafID = null;
@@ -14,22 +16,16 @@ var recIndex = 0;
 var lrecord = null;
 var firstlink = null;
 var tracklink = null;
-var link = null;
+//var link = null;
 
 function gotBuffers( buffers ) {
 	var ci = "c"+canvasID;
    	var canvas = document.getElementById(ci);
-	console.log(ci);
 	//reference audiodisplay.js 
 	drawBuffer( canvas.width, canvas.height, canvas.getContext('2d'), buffers[0] );
 	// the ONLY time gotBuffers is called is right after a new recording is completed - 
 	// so here's where we should set up the download.
 	audioRecorder.exportWAV( doneEncoding );
-}
-
-function doneEncoding( blob ) {
-    Recorder.setupDownload( blob, "myRecording" + ((recIndex<10)?"0":"") + recIndex + ".wav" );
-    recIndex++;
 }
 
 function play( e ) {
@@ -45,11 +41,9 @@ function play( e ) {
 
 function toggleRecording( e ) {
 	canvasID = e.id;
-	console.log(canvasID);
 	var imgchange = e;
 	if (e.classList.contains("recording")) {
 		// stop recording
-		console.log("stop");
 		audioRecorder.stop();
 		e.classList.remove("recording");
 		audioRecorder.getBuffers( gotBuffers );
@@ -60,15 +54,18 @@ function toggleRecording( e ) {
 		// start recording  
 		if (!audioRecorder)
 	    		return;
+	
 		e.classList.add("recording");
-		console.log("start");
 		audioRecorder.clear();
 		audioRecorder.record();
 		imgchange.src = 'images/micrec.png'
 	}
-
 }
 
+function doneEncoding( blob ) {
+    Recorder.setupDownload( blob, "myRecording" + ((recIndex<10)?"0":"") + recIndex + ".wav" );
+    recIndex++;
+}
 
 function gotDevices(deviceInfos) {
 	
@@ -89,12 +86,12 @@ function gotDevices(deviceInfos) {
 		audioInputSelect[selector].parentNode.replaceChild(newInputSelector, audioInputSelect[selector]);
 	}
 }
-
+	
 function changeAudioDestination(event) {
 	var InputSelector = event.path[0];
 	initAudio(InputSelector);
 }
-
+	
 function gotStream(stream) {
 	window.stream = stream; // make stream available to console
 	
@@ -121,7 +118,7 @@ function gotStream(stream) {
 	
 	return navigator.mediaDevices.enumerateDevices();
 }
-
+	
 function initAudio(index) {
 	if (window.stream) {
 		window.stream.getTracks().forEach(function(track) {
