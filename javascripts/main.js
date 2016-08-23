@@ -4,8 +4,6 @@ var masterInputSelector = document.createElement('select');
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 var audioContext = new AudioContext();
-//var audioInput = null;
-//var realAudioInput = null;
 var audioRecorder = null;
 var Track = null;    
 var rafID = null;
@@ -21,6 +19,7 @@ var link = null;
 function gotBuffers( buffers ) {
 	var ci = "c"+canvasID;
    	var canvas = document.getElementById(ci);
+	console.log(canvas);
 	//reference audiodisplay.js 
 	drawBuffer( canvas.width, canvas.height, canvas.getContext('2d'), buffers[0] );
 	// the ONLY time gotBuffers is called is right after a new recording is completed - 
@@ -46,6 +45,7 @@ function play( e ) {
 
 function toggleRecording( e ) {
 	canvasID = e.id;
+	console.log(canvasID);
 	var imgchange = e;
 	if (e.classList.contains("recording")) {
 	// stop recording
