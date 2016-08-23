@@ -2,7 +2,8 @@ var masterInputSelector = document.createElement('select');
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
-var audioContext = new AudioContext();
+var audioContext1 = new AudioContext();
+var audioContext2 = new AudioContext();
 var audioRecorder1 = null;
 var audioRecorder2 = null;
 var Track = null;    
@@ -131,15 +132,15 @@ function gotStream1(stream) {
 	window.stream = stream; // make stream available to console
 	
 	// Create an AudioNode from the stream.
-	var realAudioInput = audioContext.createMediaStreamSource(stream);
+	var realAudioInput = audioContext1.createMediaStreamSource(stream);
 	var audioInput = realAudioInput;
 	
-	var inputPoint = audioContext.createGain();
+	var inputPoint = audioContext1.createGain();
 	inputPoint.gain.value = 1.0;
 	audioInput.connect(inputPoint);
 	//audioInput = convertToMono( input );
 	
-	analyserNode = audioContext.createAnalyser();
+	analyserNode = audioContext1.createAnalyser();
 	analyserNode.fftSize = 2048;
 	inputPoint.connect( analyserNode );
 	
@@ -149,7 +150,7 @@ function gotStream1(stream) {
 	//changeGain.gain.value = 1.0;
 	//inputPoint.connect(changeGain);
 	//changeGain.connect(audioContext.destination);
-	inputPoint.connect(audioContext.destination);
+	inputPoint.connect(audioContext1.destination);
 	
 	return navigator.mediaDevices.enumerateDevices();
 }
@@ -158,15 +159,15 @@ function gotStream2(stream) {
 	window.stream = stream; // make stream available to console
 	
 	// Create an AudioNode from the stream.
-	var realAudioInput = audioContext.createMediaStreamSource(stream);
+	var realAudioInput = audioContext2.createMediaStreamSource(stream);
 	var audioInput = realAudioInput;
 	
-	var inputPoint = audioContext.createGain();
+	var inputPoint = audioContext2.createGain();
 	inputPoint.gain.value = 1.0;
 	audioInput.connect(inputPoint);
 	//audioInput = convertToMono( input );
 	
-	analyserNode = audioContext.createAnalyser();
+	analyserNode = audioContext2.createAnalyser();
 	analyserNode.fftSize = 2048;
 	inputPoint.connect( analyserNode );
 	
@@ -176,7 +177,7 @@ function gotStream2(stream) {
 	//changeGain.gain.value = 1.0;
 	//inputPoint.connect(changeGain);
 	//changeGain.connect(audioContext.destination);
-	inputPoint.connect(audioContext.destination);
+	inputPoint.connect(audioContext2.destination);
 	
 	return navigator.mediaDevices.enumerateDevices();
 }
