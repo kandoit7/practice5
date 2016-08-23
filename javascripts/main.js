@@ -118,6 +118,7 @@ function initAudio(index) {
 	}
 	
 	var audioSource = index.value;
+	var classconfirm = index.class;
 	console.log(index);
 	var constraints = {
 		audio: { deviceId: audioSource ? {exact: audioSource} : undefined}
@@ -130,5 +131,5 @@ function handleError(error) {
 }
 
 navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
-initAudio(this);
+initAudio(0);
 
