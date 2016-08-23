@@ -19,7 +19,7 @@ var link = null;
 function gotBuffers( buffers ) {
 	var ci = "c"+canvasID;
    	var canvas = document.getElementById(ci);
-	console.log(canvas);
+	console.log(ci);
 	//reference audiodisplay.js 
 	drawBuffer( canvas.width, canvas.height, canvas.getContext('2d'), buffers[0] );
 	// the ONLY time gotBuffers is called is right after a new recording is completed - 
