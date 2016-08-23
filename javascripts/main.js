@@ -10,8 +10,6 @@ var canvasID2 = null;
 var recIndex = 0;
 var lrecord1 = null;
 var lrecord2 = null;
-var link1 = null;
-var link2 = null;
 var tracklink1 = null;
 var tracklink2 = null;
 
@@ -53,10 +51,10 @@ function toggleRecording1( e ) {
 		imgchange.src = 'images/mic.png'
 		lrecord1 = "l" + e.id;
 		audioRecorder1.getBuffers( gotBuffers1 );
-		link1 = document.getElementById('save');
+		link = document.getElementById('save');
 		tracklink1 = document.createElement('a');
 		tracklink1.id = lrecord1;
-		tracklink1.href = link1.href;
+		tracklink1.href = link.href;
 		e.appendChild(tracklink1);
 	} else {
 		// start recording  
@@ -80,10 +78,10 @@ function toggleRecording2( e ) {
 		imgchange.src = 'images/mic.png'
 		lrecord2 = "l" + e.id;
 		audioRecorder2.getBuffers( gotBuffers2 );
-		link2 = document.getElementById('save');
+		link = document.getElementById('save');
 		tracklink2 = document.createElement('a');
 		tracklink2.id = lrecord2;
-		tracklink2.href = link2.href;
+		tracklink2.href = link.href;
 		e.appendChild(tracklink2);
 	} else {
 		// start recording  
