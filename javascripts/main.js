@@ -118,7 +118,7 @@ function initAudio(index) {
 	}
 	
 	var audioSource = index.value;
-	console.log(audioSource);
+	console.log(index);
 	var constraints = {
 		audio: { deviceId: audioSource ? {exact: audioSource} : undefined}
 	};
