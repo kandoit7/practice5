@@ -32,14 +32,14 @@ function gotBuffers2( buffers ) {
 function play1( e ) {
 	console.log(e);
 	
-	var track = new Audio(tracklink.href);
+	var track = new Audio(tracklink1.href);
 	track.play();
 }
 
 function play2( e ) {
 	console.log(e);
 	
-	var track = new Audio(tracklink.href);
+	var track = new Audio(tracklink2.href);
 	track.play();
 }
 
