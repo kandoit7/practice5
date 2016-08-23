@@ -48,7 +48,8 @@ function toggleRecording( e ) {
 	console.log(canvasID);
 	var imgchange = e;
 	if (e.classList.contains("recording")) {
-	// stop recording
+		// stop recording
+		console.log("stop");
 		audioRecorder.stop();
 		e.classList.remove("recording");
 		audioRecorder.getBuffers( gotBuffers );
@@ -56,11 +57,11 @@ function toggleRecording( e ) {
 		link = document.getElementById('save');
 		lrecord = "l" + e.id;
 	} else {
-	// start recording  
+		// start recording  
 		if (!audioRecorder)
 	    		return;
-	
 		e.classList.add("recording");
+		console.log("start");
 		audioRecorder.clear();
 		audioRecorder.record();
 		imgchange.src = 'images/micrec.png'
