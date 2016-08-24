@@ -27,7 +27,7 @@ function gotBuffers2( buffers ) {
    	var canvas = document.getElementById(ci);
 	drawBuffer( canvas.width, canvas.height, canvas.getContext('2d'), buffers[0] );
 	audioRecorder2.exportWAV( doneEncoding );
-	console.log(auaudioRecorder2.exportWAV( doneEncoding ));
+	console.log(audioRecorder2.exportWAV( doneEncoding ));
 }
 
 function play1( e ) {
